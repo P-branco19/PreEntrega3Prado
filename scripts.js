@@ -17,3 +17,34 @@ document.getElementById("enviar").addEventListener("click", function () {
     //reset del formulario
     formulario.reset()
 })
+
+//Agregar productos al carrito:
+const botonesAgregar = document.getElementsByClassName("agregarCarrito")
+const carrito = document.getElementById("listaCarrito")
+const totalCarrito = document.getElementById("total")
+
+let total = 0
+
+for (let i = 0; i < botonesAgregar.length; i++) {
+    botonesAgregar[i].addEventListener("click", function () {
+        const tarjeta = this.parentElement
+        const nombre = tarjeta.getElementsByClassName("card-title")[0].textContent
+        const precioTexto = tarjeta.getElementsByClassName("card-subtitle")[0].textContent
+
+        //Extrae el precio numerico del texto
+        const precio = parseFloat(precioTexto.replace("$", ""))
+
+        //Actualiza el total
+        total += precio
+
+        //Crea un elemento de lista con nombre y precio:
+        const itemCarrito = document.createElement("li")
+        itemCarrito.textContent = `${nombre} - ${precioTexto}`
+
+        //Agrega el elemento al carrito
+        carrito.appendChild(itemCarrito)
+
+        //Actualiza el precio total
+        totalCarrito.textContent = `Total: $${total}`
+    })
+}
