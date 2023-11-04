@@ -35,6 +35,22 @@ document.getElementById("enviar").addEventListener("click", function () {
     formulario.reset()
 })
 
+//Restaurar el carrito desde el localstorage
+document.addEventListener("DOMContentLoaded", function () {
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito") || [])
+    const totalGuardado = parseFloat(localStorage.getItem("total") || 0)
+
+    carritoGuardado = forEach(function (producto) {
+        const itemCarrito = document.createElement("li")
+        itemCarrito.textContent = producto
+        carrito.appendChild(itemCarrito)
+    })
+
+    total = totalGuardado
+    totalCarrito.textContent = `Total: $${total}`
+})
+
+
 //Agregar productos al carrito:
 const botonesAgregar = document.getElementsByClassName("agregarCarrito")
 const carrito = document.getElementById("listaCarrito")
@@ -64,6 +80,9 @@ for (let i = 0; i < botonesAgregar.length; i++) {
 
         //Actualiza el precio total
         totalCarrito.textContent = `Total: $${total}`
+
+        //Guardar carrito en el localstorage
+        guardarCarrito()
     })
 }
 
@@ -75,4 +94,17 @@ vaciarCarrito.addEventListener("click", function () {
     total = 0
     //Actualiza la visualizacion del total
     totalCarrito.textContent = "Total: $0"
+    //Vaciar el carrito en el localstorage
+    guardarCarrito()
 })
+
+//Funcion para guardar el carrito en el localstorage
+function guardarCarrito() {
+    const carritoItems = Array.from(carrito.getElementsByTagName("li"))
+    const carritoArray = carritoItems.map(function (item) {
+        return item.textContent
+    })
+
+    localStorage.setItem("carrito", JSON.stringify(carritoArray))
+    localStorage.setItem("total", total)
+}
