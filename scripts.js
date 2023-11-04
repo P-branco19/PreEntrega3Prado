@@ -22,6 +22,7 @@ document.getElementById("enviar").addEventListener("click", function () {
 const botonesAgregar = document.getElementsByClassName("agregarCarrito")
 const carrito = document.getElementById("listaCarrito")
 const totalCarrito = document.getElementById("total")
+const vaciarCarrito = document.getElementById("vaciarCarrito")
 
 let total = 0
 
@@ -48,3 +49,13 @@ for (let i = 0; i < botonesAgregar.length; i++) {
         totalCarrito.textContent = `Total: $${total}`
     })
 }
+
+//Evento para vaciar el carrito
+vaciarCarrito.addEventListener("click", function () {
+    //Vaciar la lista del carrito
+    carrito.innerHTML = ""
+    //Restablece el total a 0
+    total = 0
+    //Actualiza la visualizacion del total
+    totalCarrito.textContent = "Total: $0"
+})
