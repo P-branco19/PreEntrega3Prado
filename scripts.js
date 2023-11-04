@@ -1,3 +1,16 @@
+//Restaurar los datos del usuario desde el localstorage
+document.addEventListener("DOMContentLoaded", function () {
+    const nombreGuardado = localStorage.getItem("nombre")
+    const apellidoGuardado = localStorage.getItem("apellido")
+
+    if (nombreGuardado && apellidoGuardado) {
+        const parrafo = document.createElement("p")
+        parrafo.textContent = `Bienvenido ${nombreGuardado} ${apellidoGuardado}`
+        bienvenida.appendChild(parrafo)
+    }
+})
+
+
 //Bienvenida del usuario:
 const formulario = document.getElementById("formulario");
 const bienvenida = document.getElementById("bienvenida");
@@ -6,6 +19,10 @@ document.getElementById("enviar").addEventListener("click", function () {
     //tomo los valores del formulario
     const nombre = document.getElementById("nombre").value
     const apellido = document.getElementById("apellido").value
+
+    //almaceno los datos en el localstorage
+    localStorage.setItem("nombre", nombre)
+    localStorage.setItem("apellido", apellido)
 
     //creo un parrafo para mostrar los datos
     const parrafo = document.createElement("p")
